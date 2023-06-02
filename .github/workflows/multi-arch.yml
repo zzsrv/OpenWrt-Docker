@@ -73,21 +73,24 @@ jobs:
           sudo -E apt-get -qq install build-essential libncurses5-dev libncursesw5-dev \
             zlib1g-dev gawk git gettext libssl-dev xsltproc rsync wget unzip python3 qemu-utils genisoimage
 
-      - name: Set Up QEMU
-        uses: docker/setup-qemu-action@v1
+      - name: Docker Setup QEMU
+        uses: docker/setup-qemu-action@v2.1.0
 
-      - name: Set Up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+      - name: Docker Setup Buildx
+        uses: docker/setup-buildx-action@v2.5.0
 
-      - name: Login To DockerHub
-        uses: docker/login-action@v1
+      - name: Docker Login
+        uses: docker/login-action@v2.1.0
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PWD }}
 
-      - name: Login To Alibaba Cloud Container Registry
-        run: |
-          docker login -u ${{ secrets.ALIYUN_USERNAME }} -p ${{ secrets.ALIYUN_PWD }} registry.cn-beijing.aliyuncs.com
+      - name: Alibaba Cloud Container Registry (ACR) Login
+        uses: aliyun/acr-login@v1
+        with:
+          username: ${{ secrets.ALIYUN_USERNAME }}
+          password: ${{ secrets.ALIYUN_PWD }}
+          region-id: cn-beijing
 
       - name: Generate Variables
         id: env
@@ -122,12 +125,21 @@ jobs:
           export CONFIG_PACKAGES=$(cat $GITHUB_WORKSPACE/config/packages.config | tr -s "\n" " ")
           make image PACKAGES="$CONFIG_PACKAGES" FILES="files"
           cp bin/targets/$DEVICE_TARGET/$DEVICE_SUBTARGET/*rootfs.tar.gz $GITHUB_WORKSPACE
+          
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v3.1.2
+        with:
+          name: openwrt
+          path: immortalwrt-imagebuilder-$DEVICE_TARGET-$DEVICE_SUBTARGET.Linux-x86_64/bin
+          
+      - name: Delete Image Builder
+        run: |
           cd $GITHUB_WORKSPACE
           rm -rf openwrt-imagebuilder*
 
       - name: Build & Push Image (Default)
         if: env.DOCKER_EXTERA_TAG == null
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v4.0.0
         with:
           platforms: ${{ env.DOCKER_IMAGE_ARCH }}
           file: Dockerfile
@@ -141,7 +153,7 @@ jobs:
 
       - name: Build & Push Image (Extra Tag)
         if: env.DOCKER_EXTERA_TAG != null
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v4.0.0
         with:
           platforms: ${{ env.DOCKER_IMAGE_ARCH }}
           file: Dockerfile
@@ -156,13 +168,11 @@ jobs:
             registry.cn-beijing.aliyuncs.com/${{ secrets.ALIYUN_NAMESPACES }}/openwrt:${{ env.DOCKER_EXTERA_TAG }}
 
       - name: Save Image
-        uses: actions/docker/cli@master
-        with:
-          args: save -o openwrt.tar ${{ secrets.DOCKERHUB_USERNAME }}/openwrt:latest
+        run: |
+          docker save -o openwrt.tar ${{ secrets.DOCKERHUB_USERNAME }}/openwrt:latest
 
-      - name: Upload to release
-        uses: JasonEtco/upload-to-release@master
+      - name: Upload Docker Image
+        uses: actions/upload-artifact@v3.1.2
         with:
-          args: openwrt.tar application/zip
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          name: openwrt.tar
+          path: openwrt.tar
