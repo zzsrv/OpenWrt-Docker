@@ -10,17 +10,15 @@ jobs:
   del_runs:
     runs-on: ubuntu-latest
     steps:
-      - name: Delete Workflow Runs
-        uses: GitRML/delete-workflow-runs@main
+      - name: Delete workflow runs
+        uses: Mattraks/delete-workflow-runs@v2.0.3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           retain_days: 1
           keep_minimum_runs: 3
           
       - name: Remove old Releases
-        uses: dev-drprasad/delete-older-releases@main
+        uses: dev-drprasad/delete-older-releases@v0.2.1
         with:
           keep_latest: 3
           delete_tags: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
