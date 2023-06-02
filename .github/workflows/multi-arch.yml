@@ -85,12 +85,9 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PWD }}
 
-      - name: Alibaba Cloud Container Registry (ACR) Login
-        uses: aliyun/acr-login@v1
-        with:
-          username: ${{ secrets.ALIYUN_USERNAME }}
-          password: ${{ secrets.ALIYUN_PWD }}
-          region-id: cn-beijing
+      - name: Login To Alibaba Cloud Container Registry
+        run: |
+          docker login -u ${{ secrets.ALIYUN_USERNAME }} -p ${{ secrets.ALIYUN_PWD }} registry.cn-beijing.aliyuncs.com
 
       - name: Generate Variables
         id: env
@@ -126,7 +123,7 @@ jobs:
           make image PACKAGES="$CONFIG_PACKAGES" FILES="files"
           cp bin/targets/$DEVICE_TARGET/$DEVICE_SUBTARGET/*rootfs.tar.gz $GITHUB_WORKSPACE
           
-      - name: Upload Build Artifact
+      - name: Upload Build RootFS Artifact
         uses: actions/upload-artifact@v3.1.2
         with:
           name: openwrt
@@ -139,7 +136,7 @@ jobs:
 
       - name: Build & Push Image (Default)
         if: env.DOCKER_EXTERA_TAG == null
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v4.0.0
         with:
           platforms: ${{ env.DOCKER_IMAGE_ARCH }}
           file: Dockerfile
@@ -153,7 +150,7 @@ jobs:
 
       - name: Build & Push Image (Extra Tag)
         if: env.DOCKER_EXTERA_TAG != null
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v4.0.0
         with:
           platforms: ${{ env.DOCKER_IMAGE_ARCH }}
           file: Dockerfile
