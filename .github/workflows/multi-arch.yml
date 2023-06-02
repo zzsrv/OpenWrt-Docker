@@ -121,6 +121,16 @@ jobs:
           $GITHUB_WORKSPACE/scripts/preset-terminal-tools.sh
           export CONFIG_PACKAGES=$(cat $GITHUB_WORKSPACE/config/packages.config | tr -s "\n" " ")
           make image PACKAGES="$CONFIG_PACKAGES" FILES="files"
+          
+      - name: Upload to release
+        uses: JasonEtco/upload-to-release@master
+        with:
+          args: immortalwrt-imagebuilder-$DEVICE_TARGET-$DEVICE_SUBTARGET.Linux-x86_64/bin/* application/octet-stream
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Remove Image Builder
+        run: |
           cp bin/targets/$DEVICE_TARGET/$DEVICE_SUBTARGET/*rootfs.tar.gz $GITHUB_WORKSPACE
           cd $GITHUB_WORKSPACE
           rm -rf openwrt-imagebuilder*
