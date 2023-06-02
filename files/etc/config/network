@@ -1,0 +1,26 @@
+config interface 'loopback'
+        option proto 'static'
+        option ipaddr '127.0.0.1'
+        option netmask '255.0.0.0'
+        option device 'lo'
+
+config globals 'globals'
+        option packet_steering '1'
+
+config interface 'lan'
+        option proto 'static'
+        option netmask '255.255.255.0'
+        option ip6assign '60'
+        option ipaddr '192.168.1.2'
+        option gateway '192.168.1.1'
+        option dns '192.168.1.1'
+        option device 'br-lan'
+
+config interface 'vpn0'
+        option proto 'none'
+        option device 'tun0'
+
+config device
+        option name 'br-lan'
+        option type 'bridge'
+        list ports 'eth0'
