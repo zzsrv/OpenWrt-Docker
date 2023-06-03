@@ -6,7 +6,7 @@
 # Blog: https://p3terx.com
 #=================================================
 
-name: Multi-Arch Images
+name: Actions OpenWrt Docker Images
 
 env:
   PREFIX_URL: https://downloads.immortalwrt.org/snapshots/targets
@@ -123,7 +123,7 @@ jobs:
           make image PACKAGES="$CONFIG_PACKAGES" FILES="files"
           cp bin/targets/$DEVICE_TARGET/$DEVICE_SUBTARGET/*rootfs.tar.gz $GITHUB_WORKSPACE
           
-      - name: Upload Build RootFS Artifact
+      - name: Upload RootFS Artifact
         uses: actions/upload-artifact@v3.1.2
         with:
           name: openwrt
@@ -166,6 +166,9 @@ jobs:
 
       - name: Save Image
         run: |
+          docker images
+          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/openwrt:latest
+          docker images
           docker save -o openwrt.tar ${{ secrets.DOCKERHUB_USERNAME }}/openwrt:latest
 
       - name: Upload Image
