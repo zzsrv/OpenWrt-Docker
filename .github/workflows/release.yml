@@ -1,10 +1,26 @@
-name: release
+#=================================================
+# https://github.com/P3TERX/Actions-OpenWrt
+# Description: Build OpenWrt using GitHub Actions
+# Lisence: MIT
+# Author: P3TERX
+# Blog: https://p3terx.com
+#=================================================
 
-# https://help.github.com/en/articles/workflow-syntax-for-github-actions#on
+name: Release
+
+env:
+  PREFIX_URL: https://downloads.immortalwrt.org/snapshots/targets
+
 on:
+  workflow_dispatch:
+    inputs:
+      INPUT_TARGET:
+        description: "Target to build (platform/target/subtarget)"
+        required: false
+        default: "all"
   schedule:
     - cron: 0 0 * * *
-
+    
 jobs:
   draft_release:
     runs-on: ubuntu-latest
