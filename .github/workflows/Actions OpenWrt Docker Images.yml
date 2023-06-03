@@ -122,18 +122,40 @@ jobs:
           export CONFIG_PACKAGES=$(cat $GITHUB_WORKSPACE/config/packages.config | tr -s "\n" " ")
           make image PACKAGES="$CONFIG_PACKAGES" FILES="files"
           cp bin/targets/$DEVICE_TARGET/$DEVICE_SUBTARGET/*rootfs.tar.gz $GITHUB_WORKSPACE
-          ls -aln bin/targets/$DEVICE_TARGET/$DEVICE_SUBTARGET/*
+          cp -rf bin/targets/$DEVICE_TARGET/$DEVICE_SUBTARGET/* $GITHUB_WORKSPACE/openwrt-artifact
           
       - name: Upload RootFS Artifact To Workflow
         uses: actions/upload-artifact@v3.1.2
         with:
-          name: openwrt
-          path: immortalwrt-imagebuilder-$DEVICE_TARGET-$DEVICE_SUBTARGET.Linux-x86_64/bin/targets/$DEVICE_TARGET/$DEVICE_SUBTARGET/*
+          name: openwrt-artifact
+          path: openwrt-artifact
+          
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: latest
+          release_name: latest
+          body: |
+            Test upload-to-github-release works with `actions/create-release`
+          draft: false
+          
+      - name: Upload RootFS Artifact To Release
+        uses: xresloader/upload-to-github-release@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          file: "openwrt-artifact/*.*"
+          release_id: ${{ steps.create_release.outputs.id }}
+          overwrite: true  
           
       - name: Delete Image Builder
         run: |
           cd $GITHUB_WORKSPACE
           rm -rf openwrt-imagebuilder*
+          rm -rf openwrt-artifact
 
       - name: Build & Push Image (Default)
         if: env.DOCKER_EXTERA_TAG == null
@@ -175,10 +197,12 @@ jobs:
         with:
           name: openwrt.tar
           path: openwrt.tar
-          
+
       - name: Upload Image To Release
-        uses: JasonEtco/upload-to-release@master
-        with:
-          args: openwrt.tar
+        uses: xresloader/upload-to-github-release@main
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}          
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          file: "openwrt.tar"
+          release_id: ${{ steps.create_release.outputs.id }}
+          overwrite: true    
