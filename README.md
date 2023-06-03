@@ -13,7 +13,7 @@ DockerHub: <https://hub.docker.com/r/zzsrv/openwrt>
 
 ## 支持设备及镜像版本
 
-本项目基于 [immortalwrt: openwrt-23.05](https://github.com/immortalwrt/immortalwrt/tree/openwrt-23.05)，每日上午 8 点编译 OpenWrt 镜像，镜像构建完成后将同时推送到 [DockerHub](https://hub.docker.com/r/zzsrv/openwrt) 和 阿里云镜像仓库 (北京) 。
+本项目基于 [immortalwrt: openwrt-23.05](https://github.com/immortalwrt/immortalwrt/tree/openwrt-23.05)，每日上午 8 点编译 OpenWrt 镜像，镜像构建完成后将同时推送到 [DockerHub](https://hub.docker.com/r/zzsrv/openwrt) 和 阿里云镜像仓库 (杭州) 。
 
 对于国内用户，为提高镜像拉取体验，可以考虑拉取存放于阿里云镜像仓库的镜像，镜像名称及标签如下表所示:
 
@@ -21,11 +21,11 @@ DockerHub: <https://hub.docker.com/r/zzsrv/openwrt>
 
 OpenWrt 标准镜像为集成常用软件包的 Docker 镜像，镜像自带软件包可满足大多数情景下的使用需求。
 
-|  支持设备/平台  |        DockerHub        |                  阿里云镜像仓库 (北京)                  |
+|  支持设备/平台  |        DockerHub        |                  阿里云镜像仓库 (杭州)                  |
 | :-------------: | :---------------------: | :-----------------------------------------------------: |
-|  x86_64/amd64   | zzsrv/openwrt:latest | registry.cn-beijin.aliyuncs.com/zzsrv/openwrt:latest |
-|  x86_64/amd64   | zzsrv/openwrt:x86_64 | registry.cn-beijin.aliyuncs.com/zzsrv/openwrt:x86_64 |
-|  x86_64/amd64   | zzsrv/openwrt:amd64 | registry.cn-beijin.aliyuncs.com/zzsrv/openwrt:amd64 |
+|  x86_64/amd64   | zzsrv/openwrt:latest | registry.cn-hangzhou.aliyuncs.com/zzsrv/openwrt:latest |
+|  x86_64/amd64   | zzsrv/openwrt:x86_64 | registry.cn-hangzhou.aliyuncs.com/zzsrv/openwrt:x86_64 |
+|  x86_64/amd64   | zzsrv/openwrt:amd64 | registry.cn-hangzhou.aliyuncs.com/zzsrv/openwrt:amd64 |
 
 
 镜像详细使用方法请参考博客文章:
