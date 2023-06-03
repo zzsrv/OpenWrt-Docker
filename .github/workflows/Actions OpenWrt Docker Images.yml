@@ -30,7 +30,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@main
+        uses: actions/checkout@v3
 
       - name: Find Targets
         id: find-targets
@@ -63,7 +63,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@main
+        uses: actions/checkout@v3
 
       - name: Initialization Environment
         env:
@@ -132,22 +132,11 @@ jobs:
           export CONFIG_PACKAGES=$(cat $GITHUB_WORKSPACE/config/packages.config | tr -s "\n" " ")
           make image PACKAGES="$CONFIG_PACKAGES" FILES="files"
           cp bin/targets/$DEVICE_TARGET/$DEVICE_SUBTARGET/*rootfs.tar.gz $GITHUB_WORKSPACE
-          mkdir -p $GITHUB_WORKSPACE/artifact
-          cp -rf bin/targets/$DEVICE_TARGET/$DEVICE_SUBTARGET/* $GITHUB_WORKSPACE/artifact
-          
-      - name: Upload RootFS Artifact To Release
-        uses: xresloader/upload-to-github-release@main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          file: "artifact/*"
-          overwrite: true  
-          
+
       - name: Delete Image Builder
         run: |
           cd $GITHUB_WORKSPACE
           rm -rf openwrt-imagebuilder*
-          rm -rf artifact
 
       - name: Build & Push Image (Default)
         if: env.DOCKER_EXTERA_TAG == null
@@ -189,16 +178,8 @@ jobs:
           docker pull ${{ secrets.DOCKERHUB_USERNAME }}/openwrt:latest
           docker save -o openwrt.tar ${{ secrets.DOCKERHUB_USERNAME }}/openwrt:latest
 
-      - name: Upload Image To Workflow
+      - name: Upload Image
         uses: actions/upload-artifact@v3.1.2
         with:
           name: openwrt.tar
-          path: openwrt.tar
-
-      - name: Upload Image To Release
-        uses: xresloader/upload-to-github-release@main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          file: "openwrt.tar"
-          overwrite: true    
+          path: openwrt.tar 
