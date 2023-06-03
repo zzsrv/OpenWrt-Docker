@@ -7,7 +7,7 @@ on:
     - cron: 0 0 * * *
 
 jobs:
-  del_runs:
+  Delete:
     runs-on: ubuntu-latest
     steps:
       - name: Delete workflow runs
