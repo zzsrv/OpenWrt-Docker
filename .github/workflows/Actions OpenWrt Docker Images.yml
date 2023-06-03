@@ -51,7 +51,7 @@ jobs:
           done
           JSON="$JSON"']}'
           echo $JSON
-          echo "::set-output name=TARGETS::$JSON"
+          echo "TARGETS=$JSON" >> $GITHUB_OUTPUT
 
   Docker-Images:
     name: ${{ matrix.TARGETS }}
