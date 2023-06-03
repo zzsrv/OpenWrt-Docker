@@ -122,12 +122,13 @@ jobs:
           export CONFIG_PACKAGES=$(cat $GITHUB_WORKSPACE/config/packages.config | tr -s "\n" " ")
           make image PACKAGES="$CONFIG_PACKAGES" FILES="files"
           cp bin/targets/$DEVICE_TARGET/$DEVICE_SUBTARGET/*rootfs.tar.gz $GITHUB_WORKSPACE
+          ls -aln immortalwrt-imagebuilder-$DEVICE_TARGET-$DEVICE_SUBTARGET.Linux-x86_64/bin/*
           
       - name: Upload RootFS Artifact
         uses: actions/upload-artifact@v3.1.2
         with:
           name: openwrt
-          path: immortalwrt-imagebuilder-$DEVICE_TARGET-$DEVICE_SUBTARGET.Linux-x86_64/bin
+          path: immortalwrt-imagebuilder-$DEVICE_TARGET-$DEVICE_SUBTARGET.Linux-x86_64/bin/*
           
       - name: Delete Image Builder
         run: |
@@ -166,13 +167,18 @@ jobs:
 
       - name: Save Image
         run: |
-          docker images
           docker pull ${{ secrets.DOCKERHUB_USERNAME }}/openwrt:latest
-          docker images
           docker save -o openwrt.tar ${{ secrets.DOCKERHUB_USERNAME }}/openwrt:latest
 
-      - name: Upload Image
+      - name: Upload To Workflow
         uses: actions/upload-artifact@v3.1.2
         with:
           name: openwrt.tar
           path: openwrt.tar
+          
+      - name: Upload To Release
+        uses: JasonEtco/upload-to-release@master
+        with:
+          args: openwrt.tar application/zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}          
