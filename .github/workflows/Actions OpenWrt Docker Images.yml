@@ -122,13 +122,14 @@ jobs:
           export CONFIG_PACKAGES=$(cat $GITHUB_WORKSPACE/config/packages.config | tr -s "\n" " ")
           make image PACKAGES="$CONFIG_PACKAGES" FILES="files"
           cp bin/targets/$DEVICE_TARGET/$DEVICE_SUBTARGET/*rootfs.tar.gz $GITHUB_WORKSPACE
-          cp -rf bin/targets/$DEVICE_TARGET/$DEVICE_SUBTARGET/* $GITHUB_WORKSPACE/openwrt-artifact
+          mkdir -p $GITHUB_WORKSPACE/artifact
+          cp -rf bin/targets/$DEVICE_TARGET/$DEVICE_SUBTARGET/* $GITHUB_WORKSPACE/artifact
           
       - name: Upload RootFS Artifact To Workflow
         uses: actions/upload-artifact@v3.1.2
         with:
-          name: openwrt-artifact
-          path: openwrt-artifact
+          name: artifact
+          path: artifact
           
       - name: Create Release
         id: create_release
@@ -155,7 +156,7 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE
           rm -rf openwrt-imagebuilder*
-          rm -rf openwrt-artifact
+          rm -rf artifact
 
       - name: Build & Push Image (Default)
         if: env.DOCKER_EXTERA_TAG == null
