@@ -32,55 +32,9 @@ jobs:
           zip -r pkg.zip *.md
           echo "$(openssl rand -hex 4)" > "random-name-$(openssl rand -hex 4).txt"
           echo "$(openssl rand -hex 4)" > "random-name-$(openssl rand -hex 4).txt"
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+      - name: Upload to release
+        uses: JasonEtco/upload-to-release@master
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }} (draft)
-          body: |
-            Test upload-to-github-release works with `actions/create-release`
-          draft: true
-          prerelease: false
-      - uses: xresloader/upload-to-github-release@main
+          args: pkg.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          file: "*.md;*.zip;random-name-*.txt"
-          delete_file: "random-name-*.txt;random-*.txt"
-          release_id: ${{ steps.create_release.outputs.id }}
-          overwrite: true
-          verbose: true
-  prelease:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: "find env"
-        run: |
-          set | grep GITHUB_ | grep -v GITHUB_TOKEN
-          zip -r pkg.zip *.md
-          echo "$(openssl rand -hex 4)" > "random-name-$(openssl rand -hex 4).txt"
-          echo "$(openssl rand -hex 4)" > "random-name-$(openssl rand -hex 4).txt"
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-        with:
-          tag_name: ${{ github.ref }}-prelease
-          release_name: Release ${{ github.ref }} (prelease)
-          body: |
-            Test upload-to-github-release works with `actions/create-release`
-          draft: false
-          prerelease: true
-      - uses: xresloader/upload-to-github-release@main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          file: "*.md;*.zip;random-name-*.txt"
-          delete_file: "random-name-*.txt;random-*.txt"
-          release_id: ${{ steps.create_release.outputs.id }}
-          overwrite: true
-          verbose: true
