@@ -93,7 +93,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
  
       - name: Login To Aliyun
-        uses: ddocker/login-action@v2.1.0
+        uses: docker/login-action@v2.1.0
         with:
           registry: registry.cn-hangzhou.aliyuncs.com
           username: ${{ secrets.ALIYUN_USERNAME }}
@@ -139,7 +139,7 @@ jobs:
         uses: actions/upload-artifact@v3.1.2
         with:
           name: artifact
-          path: artifact
+          path: artifact/*
           
       - name: Upload RootFS Artifact To Release
         uses: xresloader/upload-to-github-release@main
