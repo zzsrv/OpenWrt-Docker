@@ -33,8 +33,6 @@ jobs:
           echo "$(openssl rand -hex 4)" > "random-name-$(openssl rand -hex 4).txt"
           echo "$(openssl rand -hex 4)" > "random-name-$(openssl rand -hex 4).txt"
       - name: Upload to release
-        uses: JasonEtco/upload-to-release@master
+        uses: diamondburned/action-upload-release@main
         with:
-          args: pkg.zip
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          files: pkg.zip
