@@ -84,10 +84,20 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PWD }}
-
-      - name: Login To Alibaba Cloud Container Registry
-        run: |
-          docker login -u ${{ secrets.ALIYUN_USERNAME }} -p ${{ secrets.ALIYUN_PWD }} registry.cn-hangzhou.aliyuncs.com
+          
+      - name: Login To GitHub
+        uses: docker/login-action@v2.1.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+ 
+      - name: Login To Aliyun
+        uses: ddocker/login-action@v2.1.0
+        with:
+          registry: registry.cn-hangzhou.aliyuncs.com
+          username: ${{ secrets.ALIYUN_USERNAME }}
+          password: ${{ secrets.ALIYUN_PWD }}
 
       - name: Generate Variables
         id: env
@@ -131,25 +141,12 @@ jobs:
           name: artifact
           path: artifact
           
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: latest
-          release_name: latest
-          body: |
-            Test upload-to-github-release works with `actions/create-release`
-          draft: false
-          
       - name: Upload RootFS Artifact To Release
         uses: xresloader/upload-to-github-release@main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          file: "openwrt-artifact/*.*"
-          release_id: ${{ steps.create_release.outputs.id }}
+          file: "openwrt-artifact/*"
           overwrite: true  
           
       - name: Delete Image Builder
@@ -169,6 +166,8 @@ jobs:
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/openwrt:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/openwrt:${{ env.DEVICE_PLATFORM }}
+            ghcr.io/openwrt:latest
+            ghcr.io/openwrt:${{ env.DEVICE_PLATFORM }}
             registry.cn-hangzhou.aliyuncs.com/${{ secrets.ALIYUN_NAMESPACES }}/openwrt:latest
             registry.cn-hangzhou.aliyuncs.com/${{ secrets.ALIYUN_NAMESPACES }}/openwrt:${{ env.DEVICE_PLATFORM }}
 
@@ -184,6 +183,9 @@ jobs:
             ${{ secrets.DOCKERHUB_USERNAME }}/openwrt:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/openwrt:${{ env.DEVICE_PLATFORM }}
             ${{ secrets.DOCKERHUB_USERNAME }}/openwrt:${{ env.DOCKER_EXTERA_TAG }}
+            ghcr.io/openwrt:latest
+            ghcr.io/openwrt:${{ env.DEVICE_PLATFORM }}
+            ghcr.io/openwrt:${{ env.DOCKER_EXTERA_TAG }}
             registry.cn-hangzhou.aliyuncs.com/${{ secrets.ALIYUN_NAMESPACES }}/openwrt:latest
             registry.cn-hangzhou.aliyuncs.com/${{ secrets.ALIYUN_NAMESPACES }}/openwrt:${{ env.DEVICE_PLATFORM }}
             registry.cn-hangzhou.aliyuncs.com/${{ secrets.ALIYUN_NAMESPACES }}/openwrt:${{ env.DOCKER_EXTERA_TAG }}
@@ -205,5 +207,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           file: "openwrt.tar"
-          release_id: ${{ steps.create_release.outputs.id }}
           overwrite: true    
