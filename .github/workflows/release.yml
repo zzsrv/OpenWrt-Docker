@@ -36,3 +36,4 @@ jobs:
         uses: diamondburned/action-upload-release@main
         with:
           files: pkg.zip
+          RELEASE_ID: db19a5e
