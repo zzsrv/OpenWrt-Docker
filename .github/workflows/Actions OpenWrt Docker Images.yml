@@ -135,18 +135,12 @@ jobs:
           mkdir -p $GITHUB_WORKSPACE/artifact
           cp -rf bin/targets/$DEVICE_TARGET/$DEVICE_SUBTARGET/* $GITHUB_WORKSPACE/artifact
           
-      - name: Upload RootFS Artifact To Workflow
-        uses: actions/upload-artifact@v3.1.2
-        with:
-          name: artifact
-          path: artifact/*
-          
       - name: Upload RootFS Artifact To Release
         uses: xresloader/upload-to-github-release@main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          file: "openwrt-artifact/*"
+          file: "artifact/*"
           overwrite: true  
           
       - name: Delete Image Builder
