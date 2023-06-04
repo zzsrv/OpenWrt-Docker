@@ -44,9 +44,13 @@ P3TERX/Actions-OpenWrt (本项目基于此项目):
 
 <https://github.com/P3TERX/Actions-OpenWrt>
 
+ImmortalWrt OpenWrt Source:
+
+<https://github.com/immortalwrt/immortalwrt>
+
 OpenWrt Source Repository:
 
-<https://github.com/openwrt/openwrt/>
+<https://github.com/openwrt/openwrt>
 
 Lean's OpenWrt source:
 
