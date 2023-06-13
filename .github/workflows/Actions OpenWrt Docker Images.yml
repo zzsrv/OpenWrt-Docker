@@ -126,12 +126,7 @@ jobs:
           export CONFIG_PACKAGES=$(cat $GITHUB_WORKSPACE/config/packages.config | tr -s "\n" " ")
           make image PACKAGES="$CONFIG_PACKAGES" FILES="files"
           cp bin/targets/$DEVICE_TARGET/$DEVICE_SUBTARGET/*rootfs.tar.gz $GITHUB_WORKSPACE
-          
-      - name: Upload RootFS
-        uses: softprops/action-gh-release@v1
-        with:
-          files: immortalwrt-imagebuilder-$DEVICE_VERSION-$DEVICE_TARGET-$DEVICE_SUBTARGET.Linux-x86_64/bin/targets/$DEVICE_TARGET/$DEVICE_SUBTARGET/*
-          
+                  
       - name: Delete Image Builder
         run: |
           cd $GITHUB_WORKSPACE
