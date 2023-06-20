@@ -9,8 +9,8 @@
 name: Actions OpenWrt Docker Images
 
 env:
-  PREFIX_URL: https://downloads.immortalwrt.org/releases/23.05.0-rc1/targets/
-  DEVICE_VERSION: 23.05.0-rc1
+  PREFIX_URL: https://downloads.immortalwrt.org/releases/23.05-SNAPSHOT/targets/
+  DEVICE_VERSION: 23.05-SNAPSHOT
 
 on:
   workflow_dispatch:
