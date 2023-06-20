@@ -17,9 +17,7 @@ DockerHub: <https://hub.docker.com/r/zzsrv/openwrt>
 
 对于国内用户，为提高镜像拉取体验，可以考虑拉取存放于阿里云镜像仓库的镜像，镜像名称及标签如下表所示:
 
-### OpenWrt 标准镜像
-
-OpenWrt 标准镜像为集成常用软件包的 Docker 镜像，镜像自带软件包可满足大多数情景下的使用需求。
+### OpenWrt 镜像地址
 
 |  支持设备/平台  |        DockerHub        |                  阿里云镜像仓库 (杭州)                  |
 | :-------------: | :---------------------: | :-----------------------------------------------------: |
@@ -36,11 +34,11 @@ OpenWrt 标准镜像为集成常用软件包的 Docker 镜像，镜像自带软�
 
 ## 鸣谢
 
-SuLingGG/OpenWrt-Docker (本项目基于此项目修改):
+SuLingGG/OpenWrt-Docker (本项目基于此项目):
 
 <https://github.com/SuLingGG/OpenWrt-Docker>
 
-P3TERX/Actions-OpenWrt (本项目基于此项目):
+P3TERX/Actions-OpenWrt:
 
 <https://github.com/P3TERX/Actions-OpenWrt>
 
