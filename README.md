@@ -53,7 +53,3 @@ OpenWrt Source Repository:
 Lean's OpenWrt source:
 
 <https://github.com/coolsnowwolf/lede>
-
-CTCGFW's Team:
-
-<https://github.com/project-openwrt>
