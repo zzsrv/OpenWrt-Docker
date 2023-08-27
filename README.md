@@ -34,17 +34,17 @@ DockerHub: <https://hub.docker.com/r/zzsrv/openwrt>
 
 ## 鸣谢
 
-SuLingGG/OpenWrt-Docker (本项目基于此项目):
+SuLingGG/OpenWrt-Docker:
 
 <https://github.com/SuLingGG/OpenWrt-Docker>
-
-P3TERX/Actions-OpenWrt:
-
-<https://github.com/P3TERX/Actions-OpenWrt>
 
 ImmortalWrt OpenWrt Source:
 
 <https://github.com/immortalwrt/immortalwrt>
+
+P3TERX/Actions-OpenWrt:
+
+<https://github.com/P3TERX/Actions-OpenWrt>
 
 OpenWrt Source Repository:
 
