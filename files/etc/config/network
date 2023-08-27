@@ -16,10 +16,6 @@ config interface 'lan'
         option dns '192.168.1.1'
         option device 'br-lan'
 
-config interface 'vpn0'
-        option proto 'none'
-        option device 'tun0'
-
 config device
         option name 'br-lan'
         option type 'bridge'
