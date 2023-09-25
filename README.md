@@ -5,7 +5,7 @@
 [![Docker Stars](https://img.shields.io/docker/stars/zzsrv/openwrt.svg?style=flat-square&label=Stars&logo=docker)](https://hub.docker.com/r/zzsrv/openwrt)
 [![Docker Pulls](https://img.shields.io/docker/pulls/zzsrv/openwrt.svg?style=flat-square&label=Pulls&logo=docker&color=orange)](https://hub.docker.com/r/zzsrv/openwrt)
 
-本项目旨在构建适用于x86_64(amd64) 平台设备的 OpenWrt 镜像 (每日更新)。
+适用于x86_64(amd64) 平台的 OpenWrt 镜像 (每日更新)。
 
 Github: <https://github.com/zzsrv/OpenWrt-Docker>
 
