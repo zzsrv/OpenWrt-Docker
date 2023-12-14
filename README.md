@@ -5,7 +5,7 @@
 [![Docker Stars](https://img.shields.io/docker/stars/zzsrv/openwrt.svg?style=flat-square&label=Stars&logo=docker)](https://hub.docker.com/r/zzsrv/openwrt)
 [![Docker Pulls](https://img.shields.io/docker/pulls/zzsrv/openwrt.svg?style=flat-square&label=Pulls&logo=docker&color=orange)](https://hub.docker.com/r/zzsrv/openwrt)
 
-openwrt x86_64/amd64，基于immortalwrt openwrt-23.05(每日更新)
+OpenWrt-23.05 (PassWall & OpenClash)，基于ImmortalWrt OpenWrt-23.05(每日更新)。
 
 Github: <https://github.com/zzsrv/OpenWrt-Docker>
 
@@ -13,7 +13,7 @@ DockerHub: <https://hub.docker.com/r/zzsrv/openwrt>
 
 ## 支持设备及镜像版本
 
-本项目基于 [immortalwrt: openwrt-23.05](https://github.com/immortalwrt/immortalwrt/tree/openwrt-23.05)，每日上午 8 点编译 OpenWrt 镜像，镜像构建完成后将同时推送到 [DockerHub](https://hub.docker.com/r/zzsrv/openwrt) 和 阿里云镜像仓库 (杭州) 。
+本项目基于 [ImmortalWrt OpenWrt-23.05](https://github.com/immortalwrt/immortalwrt/tree/openwrt-23.05)，每日上午 8 点编译 OpenWrt 镜像，镜像构建完成后将同时推送到 [DockerHub](https://hub.docker.com/r/zzsrv/openwrt) 和 阿里云镜像仓库 (杭州) 。
 
 对于国内用户，为提高镜像拉取体验，可以考虑拉取存放于阿里云镜像仓库的镜像，镜像名称及标签如下表所示:
 
