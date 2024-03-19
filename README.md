@@ -25,7 +25,7 @@ DockerHub: <https://hub.docker.com/r/zzsrv/openwrt>
 |  x86_64/amd64   | zzsrv/openwrt:x86_64 | registry.cn-hangzhou.aliyuncs.com/zzsrv/openwrt:x86_64 |
 |  x86_64/amd64   | zzsrv/openwrt:amd64 | registry.cn-hangzhou.aliyuncs.com/zzsrv/openwrt:amd64 |
 
-### 镜像使用方法
+## 镜像使用方法
 
 1、打开网卡混杂模式，其中eth0根据ifconfig命令找到自己的本地网卡名称替换
 
@@ -59,7 +59,7 @@ vi /etc/config/network
 
 docker container restart openwrt
 
-#### 镜像详细使用方法请参考博客文章:
+### 镜像详细使用方法请参考博客文章:
 
 「在 Docker 中运行 OpenWrt 旁路网关」<https://mlapp.cn/376.html>
 
