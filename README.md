@@ -33,15 +33,15 @@ sudo ip link set eth0 promisc on
 
 2、创建名称为macvlan的虚拟网卡，并指定网关gateway、子网网段subnet、虚拟网卡的真实父级网卡parent（第一步中的本地网卡名称）
 
-docker network create -d macvlan --subnet=192.168.1.0/24 --gateway=192.168.1.1 -o parent= eth0 macnet
+docker network create -d macvlan --subnet=192.168.1.0/24 --gateway=192.168.1.1 -o parent=eth0 macnet
 
 3、查看虚拟网卡是否创建成功，成功的话能看到名称为“macnet”的虚拟网卡
 
 docker network ls
 
-4、拉取镜像，可以带上阿里云仓库地址的前缀提高拉取速度
+4、拉取镜像
 
-docker pull hangzhou.aliyuncs.com/zzsrv/openwrt
+docker pull zzsrv/openwrt
 
 5、创建容器并后台运行
 
