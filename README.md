@@ -39,9 +39,9 @@ docker network create -d macvlan --subnet=192.168.1.0/24 --gateway=192.168.1.1 -
 
 docker network ls
 
-4、拉取镜像
+4、拉取镜像，可以通过阿里云镜像提升镜像拉取速度
 
-docker pull zzsrv/openwrt
+docker pull registry.cn-hangzhou.aliyuncs.com/zzsrv/openwrt:latest
 
 5、创建容器并后台运行
 
