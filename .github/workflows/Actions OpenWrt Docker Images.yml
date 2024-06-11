@@ -127,6 +127,7 @@ jobs:
           export CONFIG_PACKAGES=$(cat $GITHUB_WORKSPACE/config/packages.config | tr -s "\n" " ")
           make image PACKAGES="$CONFIG_PACKAGES" FILES="files"
           cp bin/targets/$DEVICE_TARGET/$DEVICE_SUBTARGET/*rootfs.tar.gz $GITHUB_WORKSPACE
+          
       - name: Build RootFS (arm64)
         if: env.DOCKER_EXTERA_TAG == 'arm64'
         run: |
