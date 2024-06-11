@@ -128,18 +128,11 @@ jobs:
           make image PACKAGES="$CONFIG_PACKAGES" FILES="files"
           cp bin/targets/$DEVICE_TARGET/$DEVICE_SUBTARGET/*rootfs.tar.gz $GITHUB_WORKSPACE
           
-      - name: Build RootFS (arm64)
-        if: env.DOCKER_EXTERA_TAG == 'arm64'
+      - name: Build RootFS (aarch64)
+        if: env.DOCKER_EXTERA_TAG == 'aarch64'
         run: |
-          cd immortalwrt-imagebuilder-$DEVICE_VERSION-$DEVICE_TARGET-$DEVICE_SUBTARGET.Linux-x86_64
-          chmod +x $GITHUB_WORKSPACE/scripts/*
-          $GITHUB_WORKSPACE/scripts/preset-terminal-tools.sh
-          export CONFIG_PACKAGES=$(cat $GITHUB_WORKSPACE/config/packages.config | tr -s "\n" " ")
-          make image PACKAGES="$CONFIG_PACKAGES" FILES="files"
-          echo 'make completed ...'
-          ls bin/targets/$DEVICE_TARGET/$DEVICE_SUBTARGET/*
           wget -q https://storage.openwrt.cc/snapshots/targets/$DEVICE_TARGET/$DEVICE_SUBTARGET/immortalwrt-$DEVICE_TARGET-$DEVICE_SUBTARGET-rootfs.tar.gz
-          cp ./*rootfs.tar.gz $GITHUB_WORKSPACE  
+          cp *rootfs.tar.gz $GITHUB_WORKSPACE  
                   
       - name: Delete Image Builder
         run: |
@@ -162,8 +155,8 @@ jobs:
             registry.cn-hangzhou.aliyuncs.com/${{ secrets.ALIYUN_NAMESPACES }}/openwrt:${{ env.DEVICE_PLATFORM }}
             registry.cn-hangzhou.aliyuncs.com/${{ secrets.ALIYUN_NAMESPACES }}/openwrt:${{ env.DOCKER_EXTERA_TAG }}
 
-      - name: Build & Push Image (arm64)
-        if: env.DOCKER_EXTERA_TAG == 'arm64'
+      - name: Build & Push Image (aarch64)
+        if: env.DOCKER_EXTERA_TAG == 'aarch64'
         uses: docker/build-push-action@v4
         with:
           platforms: ${{ env.DOCKER_IMAGE_ARCH }}
