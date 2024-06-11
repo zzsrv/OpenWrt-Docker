@@ -131,7 +131,7 @@ jobs:
       - name: Build RootFS (aarch64)
         if: env.DOCKER_EXTERA_TAG == 'aarch64'
         run: |
-          wget --overwrite -q https://storage.openwrt.cc/snapshots/targets/$DEVICE_TARGET/$DEVICE_SUBTARGET/immortalwrt-$DEVICE_TARGET-$DEVICE_SUBTARGET-rootfs.tar.gz
+          wget -q -O immortalwrt-$DEVICE_TARGET-$DEVICE_SUBTARGET-rootfs.tar.gz https://storage.openwrt.cc/snapshots/targets/$DEVICE_TARGET/$DEVICE_SUBTARGET/immortalwrt-$DEVICE_TARGET-$DEVICE_SUBTARGET-rootfs.tar.gz
           cp *rootfs.tar.gz $GITHUB_WORKSPACE  
                   
       - name: Delete Image Builder
