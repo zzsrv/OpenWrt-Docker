@@ -133,7 +133,7 @@ jobs:
           rm -rf openwrt-imagebuilder*
 
       - name: Build & Push Image (Default)
-        if: env.DOCKER_EXTERA_TAG == amd64
+        if: env.DOCKER_EXTERA_TAG == "amd64"
         uses: docker/build-push-action@v4
         with:
           platforms: ${{ env.DOCKER_IMAGE_ARCH }}
