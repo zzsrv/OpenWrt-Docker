@@ -133,7 +133,7 @@ jobs:
           rm -rf openwrt-imagebuilder*
 
       - name: Build & Push Image (Default)
-        if: env.DOCKER_EXTERA_TAG == null
+        if: env.DOCKER_EXTERA_TAG == amd64
         uses: docker/build-push-action@v4
         with:
           platforms: ${{ env.DOCKER_IMAGE_ARCH }}
@@ -142,9 +142,7 @@ jobs:
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/openwrt:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/openwrt:${{ env.DEVICE_PLATFORM }}
             registry.cn-hangzhou.aliyuncs.com/${{ secrets.ALIYUN_NAMESPACES }}/openwrt:latest
-            registry.cn-hangzhou.aliyuncs.com/${{ secrets.ALIYUN_NAMESPACES }}/openwrt:${{ env.DEVICE_PLATFORM }}
 
       - name: Build & Push Image (Extra Tag)
         if: env.DOCKER_EXTERA_TAG != null
@@ -155,13 +153,11 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/openwrt:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/openwrt:${{ env.DEVICE_PLATFORM }}
             ${{ secrets.DOCKERHUB_USERNAME }}/openwrt:${{ env.DOCKER_EXTERA_TAG }}
-            registry.cn-hangzhou.aliyuncs.com/${{ secrets.ALIYUN_NAMESPACES }}/openwrt:latest
             registry.cn-hangzhou.aliyuncs.com/${{ secrets.ALIYUN_NAMESPACES }}/openwrt:${{ env.DEVICE_PLATFORM }}
             registry.cn-hangzhou.aliyuncs.com/${{ secrets.ALIYUN_NAMESPACES }}/openwrt:${{ env.DOCKER_EXTERA_TAG }}
-
+            
       - name: Save Image
         run: |
           docker pull ${{ secrets.DOCKERHUB_USERNAME }}/openwrt:latest
