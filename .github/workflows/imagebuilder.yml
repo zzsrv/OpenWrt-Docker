@@ -13,7 +13,6 @@ jobs:
     steps:
       - name: Requirements
         run: |
-          bash -c 'bash <(curl -s https://build-scripts.immortalwrt.org/init_build_environment.sh)'
           wget -q https://downloads.immortalwrt.org/releases/23.05-SNAPSHOT/targets/rockchip/armv8/immortalwrt-imagebuilder-23.05-SNAPSHOT-rockchip-armv8.Linux-x86_64.tar.xz
           tar -xJf *.tar.xz
           cd immortalwrt-imagebuilder-23.05-SNAPSHOT-rockchip-armv8.Linux-x86_64
