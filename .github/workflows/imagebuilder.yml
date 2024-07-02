@@ -17,4 +17,9 @@ jobs:
           tar -xJf *.tar.xz
           cd immortalwrt-imagebuilder-23.05-SNAPSHOT-rockchip-armv8.Linux-x86_64
           make image
-          ls bin/targets/$DEVICE_TARGET/$DEVICE_SUBTARGET/*
+          tar -zcvf targets.tar bin/targets/* 
+      - name: Upload Image
+        uses: actions/upload-artifact@v3
+        with:
+          name: targets.tar
+          path: targets.tar
