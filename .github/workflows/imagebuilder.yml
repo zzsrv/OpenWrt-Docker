@@ -16,8 +16,17 @@ jobs:
           wget -q https://downloads.immortalwrt.org/releases/23.05-SNAPSHOT/targets/rockchip/armv8/immortalwrt-imagebuilder-23.05-SNAPSHOT-rockchip-armv8.Linux-x86_64.tar.xz
           tar -xJf *.tar.xz
           cd immortalwrt-imagebuilder-23.05-SNAPSHOT-rockchip-armv8.Linux-x86_64
-          make image
-          tar -zcvf targets.tar bin/targets/* 
+          cp -rf $GITHUB_WORKSPACE/files .
+          chmod +x files/etc/rc.local
+          chmod +x $GITHUB_WORKSPACE/scripts/*
+          $GITHUB_WORKSPACE/scripts/preset-terminal-tools.sh
+          sed -i "/CONFIG_TARGET_ROOTFS_SQUASHFS/s/.*/# CONFIG_TARGET_ROOTFS_SQUASHFS is not set/;
+            /CONFIG_TARGET_ROOTFS_EXT4FS/s/.*/# CONFIG_TARGET_ROOTFS_EXT4FS is not set/" .config
+          export CONFIG_PACKAGES=$(cat $GITHUB_WORKSPACE/config/packages.config | tr -s "\n" " ")
+          make image PACKAGES="$CONFIG_MINI_PACKAGES" FILES="files"
+          cp bin/targets/$DEVICE_TARGET/$DEVICE_SUBTARGET/*rootfs.tar.gz $GITHUB_WORKSPACE
+          cd $GITHUB_WORKSPACE
+          tar -zcvf targets.tar *rootfs.tar.gz 
       - name: Upload Image
         uses: actions/upload-artifact@v3
         with:
