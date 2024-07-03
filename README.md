@@ -62,9 +62,6 @@ vi /etc/config/network
 ```
 docker container restart openwrt
 ```
-### 镜像详细使用方法请参考博客文章:
-
-「在 Docker 中运行 OpenWrt 旁路网关」<https://mlapp.cn/376.html>
 
 ## 鸣谢
 
