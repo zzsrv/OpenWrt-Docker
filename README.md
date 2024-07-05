@@ -32,11 +32,11 @@ DockerHub: <https://hub.docker.com/r/zzsrv/openwrt>
 
 1、打开网卡混杂模式，其中eth0根据ifconfig命令找到自己的本地网卡名称替换
 ```
-sudo ip link set eth0 promisc on
+sudo ip link set enp1s0 promisc on
 ```
 2、创建名称为macvlan的虚拟网卡，并指定网关gateway、子网网段subnet、虚拟网卡的真实父级网卡parent（第一步中的本地网卡名称）
 ```
-docker network create -d macvlan --subnet=192.168.1.0/24 --gateway=192.168.1.1 -o parent=eth0 macnet
+docker network create -d macvlan --subnet=192.168.0.0/24 --gateway=192.168.0.1 -o parent=enp1s0 macnet
 ```
 3、查看虚拟网卡是否创建成功，成功的话能看到名称为“macnet”的虚拟网卡
 ```
