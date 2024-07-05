@@ -11,9 +11,9 @@ config interface 'lan'
         option proto 'static'
         option netmask '255.255.255.0'
         option ip6assign '60'
-        option ipaddr '192.168.1.2'
-        option gateway '192.168.1.1'
-        option dns '192.168.1.1'
+        option ipaddr '192.168.0.8'
+        option gateway '192.168.0.1'
+        option dns '192.168.0.1'
         option device 'br-lan'
 
 config device
