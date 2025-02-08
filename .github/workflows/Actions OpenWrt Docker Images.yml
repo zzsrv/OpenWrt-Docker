@@ -149,10 +149,10 @@ jobs:
             registry.cn-hangzhou.aliyuncs.com/${{ secrets.ALIYUN_NAMESPACES }}/openwrt:${{ env.DEVICE_PLATFORM }}
             registry.cn-hangzhou.aliyuncs.com/${{ secrets.ALIYUN_NAMESPACES }}/openwrt:${{ env.DOCKER_EXTERA_TAG }}
             
-      # - name: Save Image
-      #   run: |
-      #     docker pull ${{ secrets.DOCKERHUB_USERNAME }}/openwrt:latest
-      #     docker save -o openwrt.tar ${{ secrets.DOCKERHUB_USERNAME }}/openwrt:latest
+      - name: Save Image
+        run: |
+          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/openwrt:latest
+          docker save -o openwrt.tar ${{ secrets.DOCKERHUB_USERNAME }}/openwrt:latest
 
       # - name: Upload Image
       #   uses: actions/upload-artifact@v3
