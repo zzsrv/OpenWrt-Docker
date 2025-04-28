@@ -24,7 +24,7 @@ DockerHub: <https://hub.docker.com/r/zzsrv/openwrt>
 |  x86_64/amd64   | zzsrv/openwrt:latest | registry.cn-hangzhou.aliyuncs.com/zzsrv/openwrt:latest |
 |  x86_64/amd64   | zzsrv/openwrt:x86_64 | registry.cn-hangzhou.aliyuncs.com/zzsrv/openwrt:x86_64 |
 |  x86_64/amd64   | zzsrv/openwrt:amd64 | registry.cn-hangzhou.aliyuncs.com/zzsrv/openwrt:amd64 |
-|  x86_64/amd64   | zzsrv/openwrt:23.05 | registry.cn-hangzhou.aliyuncs.com/zzsrv/openwrt:23.05 |
+|  <del>x86_64/amd64</del>   | <del>zzsrv/openwrt:23.05</del> | <del>registry.cn-hangzhou.aliyuncs.com/zzsrv/openwrt:23.05</del> |
 |  <del>armv8/aarch64</del>   | <del>zzsrv/openwrt:arm</del> | <del>registry.cn-hangzhou.aliyuncs.com/zzsrv/openwrt:arm64</del> |
 |  <del>armv8/aarch64</del>   | <del>zzsrv/openwrt:armv8</del> | <del>registry.cn-hangzhou.aliyuncs.com/zzsrv/openwrt:armv8</del> |
 |  <del>armv8/aarch64</del>   | <del>zzsrv/openwrt:aarch64</del> | <del>registry.cn-hangzhou.aliyuncs.com/zzsrv/openwrt:aarch64</del> |
